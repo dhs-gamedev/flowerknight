@@ -1,9 +1,6 @@
 package org.dhsdev.flowerknight;
 
-import org.lwjgl.opengl.GL;
-
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
@@ -18,17 +15,17 @@ public class Main {
         // Set up GLFW. Errors should be checked here later.
         glfwInit();
 
+        // GLFW creates an OpenGL context by default later, but we don't actually
+        // need it if we're using Vulkan.
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+
         // Don't ask me what the two NULLs are for. I have no clue.
         long windowHandle = glfwCreateWindow(500, 500, "FlowerKnight", NULL, NULL);
 
         glfwShowWindow(windowHandle);
-        glfwMakeContextCurrent(windowHandle);
-        GL.createCapabilities(); // We'll need this at some point.
 
         while ( !glfwWindowShouldClose(windowHandle) ) {
-            // While it's open, clear it and check for events.
-            glClear(GL_COLOR_BUFFER_BIT);
-            glfwSwapBuffers(windowHandle);
+            // While it's open, check for events.
             glfwPollEvents();
         }
 
