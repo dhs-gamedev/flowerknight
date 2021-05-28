@@ -1,7 +1,9 @@
 package org.dhsdev.flowerknight;
 
+import org.lwjgl.opengl.GL;
+
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
@@ -22,12 +24,18 @@ public final class FlowerKnight {
         // Set up GLFW. Errors should be checked here later.
         glfwInit();
 
-        // GLFW creates an OpenGL context by default later, but we don't actually
-        // need it if we're using Vulkan.
-        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        // Right now the window is non-resizable.
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+        // Get the size of the screen height as a basis for window size.
+        int monitorHeight = glfwGetVideoMode(glfwGetPrimaryMonitor()).height();
+        int screenHeight = (int) (monitorHeight * 0.75f);
 
         // Don't ask me what the two NULLs are for. I have no clue.
-        windowHandle = glfwCreateWindow(500, 500, "FlowerKnight", NULL, NULL);
+        windowHandle = glfwCreateWindow(screenHeight, screenHeight, "FlowerKnight", NULL, NULL);
+
+        glfwMakeContextCurrent(windowHandle);
+        GL.createCapabilities();
 
         glfwShowWindow(windowHandle);
 
@@ -39,9 +47,18 @@ public final class FlowerKnight {
      */
     public static void mainloop() {
 
+        // While it's open, clear screen and check for events.
         while ( !glfwWindowShouldClose(windowHandle) ) {
-            // While it's open, check for events.
+
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            // Rendering goes here later
+
+            // Render everything to screen at once
+            glfwSwapBuffers(windowHandle);
+
             glfwPollEvents();
+
         }
 
     }
