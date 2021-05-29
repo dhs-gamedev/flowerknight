@@ -113,4 +113,12 @@ public final class Shader {
         GLStates.bindID(this.id);
     }
 
+    /**
+     * Destroy the shader and clear memory.
+     */
+    public void destroy() {
+        // No need to unbind, because nothing should be rendering after anyway.
+        glDeleteShader(id);
+    }
+
 }
