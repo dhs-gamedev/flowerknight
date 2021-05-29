@@ -58,4 +58,11 @@ public class Texture {
         return texId;
     }
 
+    /**
+     * Delete this texture
+     */
+    public void delete() {
+        glDeleteTextures(texId);
+    }
+
 }
