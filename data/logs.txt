@@ -1,2 +1,0 @@
-[ 05-28-21 17:03:47 ] [ NORMAL ] Main initialization
-[ 05-28-21 17:03:49 ] [ NORMAL ] Main closed
