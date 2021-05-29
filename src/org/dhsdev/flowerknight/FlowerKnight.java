@@ -81,6 +81,8 @@ public final class FlowerKnight {
      */
     public static void exit() {
 
+        TestImage.delete();
+
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.
         glfwDestroyWindow(windowHandle);
