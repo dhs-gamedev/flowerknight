@@ -21,11 +21,11 @@ public final class Shader {
      * @param fragLoc the file path containing the fragment shader code
      * @throws Exception if any error occurs during compilation
      */
-    public Shader(String vertLoc, String fragLoc) throws Exception {
+    public Shader(String vertLoc, String fragLoc) throws GLException, IOException {
 
         id = glCreateProgram();
         if (id == 0) {
-            throw new Exception("Could not initialize shader");
+            throw new GLException("Could not initialize shader");
         }
 
         int vertShader = loadShader(
@@ -47,7 +47,7 @@ public final class Shader {
      * @return the OpenGL handle of the shader
      * @throws Exception if the shader doesn't compile
      */
-    private int loadShader(String code, int type) throws Exception {
+    private int loadShader(String code, int type) throws GLException {
 
         int progId = glCreateShader(type);
 
@@ -61,7 +61,7 @@ public final class Shader {
             // Check for error - if so, ...
             String msg = glGetShaderInfoLog(progId, 1 << 10);
             // TODO - use msg to log an error. For now ...
-            throw new Exception("Unable to compile shader, reason:\n" + msg);
+            throw new GLException("Unable to compile shader, reason:\n" + msg);
         }
 
         return progId;
@@ -74,7 +74,7 @@ public final class Shader {
      * @param fragID the fragment shader ID
      * @throws Exception if some error occurs during linking
      */
-    private void linkProgram(int vertID, int fragID) throws Exception {
+    private void linkProgram(int vertID, int fragID) throws GLException {
 
         // Attach the individual programs to the main shader program
         glAttachShader(id, vertID);
@@ -85,7 +85,7 @@ public final class Shader {
 
         // Check for fatal errors. Non-fatal errors are fine. For sure.
         if (glGetProgrami(id, GL_LINK_STATUS) == 0) {
-            throw new Exception("Error linking shader: " + glGetProgramInfoLog(id, 1 << 10));
+            throw new GLException("Error linking shader: " + glGetProgramInfoLog(id, 1 << 10));
         }
 
         // We don't need the individual shaders clogging up memory any longer.
