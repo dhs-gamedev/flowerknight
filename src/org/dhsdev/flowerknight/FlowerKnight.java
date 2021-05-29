@@ -1,5 +1,6 @@
 package org.dhsdev.flowerknight;
 
+import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
@@ -51,6 +52,8 @@ public final class FlowerKnight {
         glfwShowWindow(windowHandle);
 
         Shader.init();
+
+        Camera.init();
 
         TestImage.init();
 
