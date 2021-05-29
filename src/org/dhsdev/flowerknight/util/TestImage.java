@@ -45,10 +45,10 @@ public final class TestImage {
         }
 
         float[] positions = new float[] {
-            -0.5f,  0.5f,
             -0.5f, -0.5f,
-             0.5f, -0.5f,
+            -0.5f,  0.5f,
              0.5f,  0.5f,
+             0.5f, -0.5f,
         };
         int[] indices = new int[] {
             0, 1, 3, 3, 1, 2,
