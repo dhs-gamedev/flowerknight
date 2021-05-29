@@ -13,13 +13,17 @@ import java.util.Date;
  */
 public class Logger {
 
+    private Logger() {
+        throw new IllegalStateException("Logger class");
+    }
+
     /**
-     * @param message
-     * @param severity
+     * @param message Log Message
+     * @param severity Severity of the problem
      * @author jakeroggenbuck
      */
     public static synchronized void log(String message, Severity severity) {
-        final File logFile = new File("data/logs.txt");
+        final var logFile = new File("data/logs.txt");
 
         try {
             logFile.createNewFile();
@@ -34,9 +38,9 @@ public class Logger {
         if (severity == Severity.RAW) {
             errorMessage = message + "\n";
         } else {
-            final String timeFormat = "MM-dd-yy HH:mm:ss";
-            final SimpleDateFormat sdf = new SimpleDateFormat(timeFormat);
-            Date date = new Date();
+            final var timeFormat = "MM-dd-yy HH:mm:ss";
+            final var sdf = new SimpleDateFormat(timeFormat);
+            var date = new Date();
             String formattedDate = sdf.format(date);
             String header = "[ " + formattedDate + " ] [ " + severity.name() + " ] ";
             errorMessage = header + message + "\n";
@@ -50,7 +54,7 @@ public class Logger {
 
         // Try to write the errorMessage to the file
         try {
-            FileWriter writer = new FileWriter(logFile, true);
+            var writer = new FileWriter(logFile, true);
             writer.write(errorMessage);
             // This looks repetitive, but we want to write the log each time
             writer.close();
