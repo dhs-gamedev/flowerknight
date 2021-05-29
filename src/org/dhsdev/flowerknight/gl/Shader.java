@@ -1,8 +1,13 @@
 package org.dhsdev.flowerknight.gl;
 
+import org.dhsdev.flowerknight.util.Logger;
+import org.dhsdev.flowerknight.util.Severity;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.lwjgl.opengl.GL33.*;
 
@@ -21,7 +26,7 @@ public final class Shader {
      * @param fragLoc the file path containing the fragment shader code
      * @throws Exception if any error occurs during compilation
      */
-    public Shader(String vertLoc, String fragLoc) throws GLException, IOException {
+    private Shader(String vertLoc, String fragLoc) throws GLException, IOException {
 
         id = glCreateProgram();
         if (id == 0) {
@@ -119,6 +124,61 @@ public final class Shader {
     public void destroy() {
         // No need to unbind, because nothing should be rendering after anyway.
         glDeleteShader(id);
+    }
+
+    /**
+     * The uniforms of this shader - map a uniform name to its location in the
+     * shader program.
+     */
+    private final Map<String, Integer> uniforms = new HashMap<>();
+
+    /**
+     * Register a uniform name from the shader into the uniforms map so it can
+     * be edited later.
+     * @param name the name of the shader in the shader program
+     */
+    public void registerUniform(String name) {
+
+        int loc = glGetUniformLocation(this.id, name);
+        if (loc < 0) {
+            Logger.log("Could not find uniform: " + name, Severity.ERROR);
+        }
+
+        uniforms.put(name, loc);
+
+    }
+
+    /**
+     * Set a float uniform to a value.
+     * @param name the uniform name
+     * @param value the float value
+     */
+    public void setUniform(String name, float value) {
+        glUniform1f(uniforms.get(name), value);
+    }
+
+    /**
+     * Set a vec2 uniform to a value.
+     * @param name the uniform name
+     * @param value the array of two floats
+     */
+    public void setUniform(String name, float[] value) {
+        glUniform2fv(uniforms.get(name), value);
+    }
+
+    public static Shader TRIVIAL_SHADER;
+    public static Shader GAME_SHADER;
+
+    /**
+     * Initialize the shaders.
+     */
+    public static void init() {
+        try {
+            TRIVIAL_SHADER = new Shader("src/res/trivial_vert.glsl", "src/res/trivial_frag.glsl");
+            GAME_SHADER = new Shader("src/res/game_vert.glsl", "src/res/trivial_frag.glsl");
+        } catch (GLException | IOException e) {
+            Logger.log("Error creating shaders: " + e.getMessage(), Severity.ERROR);
+        }
     }
 
 }

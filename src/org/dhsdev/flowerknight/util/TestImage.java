@@ -38,11 +38,7 @@ public final class TestImage {
      */
     public static void init() {
 
-        try {
-            shader = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
-        } catch (GLException | IOException e) {
-            Logger.log("Could not create trivial shader", Severity.ERROR);
-        }
+        shader = Shader.TRIVIAL_SHADER;
 
         float[] positions = new float[] {
             -0.5f, -0.5f,
