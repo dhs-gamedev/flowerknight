@@ -59,7 +59,8 @@ public final class Mesh {
     public Mesh(float[] positions, int[] indices, float[] texCoords) {
 
         // The buffers we'll place the data in
-        FloatBuffer verticesBuffer, texBuffer;
+        FloatBuffer verticesBuffer;
+        FloatBuffer texBuffer;
         IntBuffer indexBuffer;
 
         vertexCount = indices.length;
