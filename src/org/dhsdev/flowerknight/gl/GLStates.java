@@ -5,7 +5,9 @@ import static org.lwjgl.opengl.GL33.*;
 /**
  * This keeps track of the global OpenGL states. In operations such as binding
  * shaders, OpenGL does not check if the same shader is bound twice, and binding
- * a shader is an expensive operation.
+ * a shader is an expensive operation. Therefore, we check it beforehand, and so
+ * on with other things.
+ * @author adamhutchings
  */
 public final class GLStates {
 
