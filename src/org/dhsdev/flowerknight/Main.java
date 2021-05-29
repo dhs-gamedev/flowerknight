@@ -9,19 +9,17 @@ import org.dhsdev.flowerknight.util.Severity;
  * @author adamhutchings
  */
 public class Main {
-
-    public static final Logger logger = new Logger();
     /**
      * Main driver code for the application.
      * @param args command line arguments - currently unused
      */
     public static void main(String[] args) {
         FlowerKnight.init();
-        logger.log("Main initialization", Severity.NORMAL);
+        Logger.log("Main initialization", Severity.NORMAL);
 
         FlowerKnight.mainloop();
         FlowerKnight.exit();
-        logger.log("Main closed", Severity.NORMAL);
+        Logger.log("Main closed", Severity.NORMAL);
     }
 
 }
