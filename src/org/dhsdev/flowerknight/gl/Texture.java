@@ -3,6 +3,7 @@ package org.dhsdev.flowerknight.gl;
 import static org.lwjgl.opengl.GL33.*;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
@@ -24,7 +25,7 @@ public class Texture {
      * @param fileName the name of the file
      * @throws Exception if something goes wrong
      */
-    public Texture(String fileName) throws Exception {
+    public Texture(String fileName) throws IOException {
 
         PNGDecoder decoder = new PNGDecoder(new FileInputStream(fileName));
         ByteBuffer buf = ByteBuffer.allocateDirect(

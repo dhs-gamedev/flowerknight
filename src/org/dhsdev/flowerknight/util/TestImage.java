@@ -60,7 +60,7 @@ public final class TestImage {
 
         try {
             tex = new Texture("res/logo.png");
-        } catch (Exception e) {
+        } catch (IOException e) {
             Logger.log("Could not load texture", Severity.ERROR);
         }
 
