@@ -3,6 +3,7 @@
 *.log
 
 # Build Files
+out/
 data/
 
 # BlueJ files
