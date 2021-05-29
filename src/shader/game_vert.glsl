@@ -13,6 +13,6 @@ out vec2 outTexCoord;
 void main() {
     gl_Position = vec4(position, 1.0);
     gl_Position.xy -= cameraLoc; // Update with camera position
-    gl_Position /= zoom;
+    gl_Position.xy /= zoom;
     outTexCoord = texCoord;
 }
