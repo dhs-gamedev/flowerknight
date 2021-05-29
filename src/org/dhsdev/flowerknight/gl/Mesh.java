@@ -2,7 +2,6 @@ package org.dhsdev.flowerknight.gl;
 
 import org.lwjgl.system.MemoryUtil;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -60,7 +59,8 @@ public final class Mesh {
     public Mesh(float[] positions, int[] indices, float[] texCoords) {
 
         // The buffers we'll place the data in
-        FloatBuffer verticesBuffer, texBuffer;
+        FloatBuffer verticesBuffer;
+        FloatBuffer texBuffer;
         IntBuffer indexBuffer;
 
         vertexCount = indices.length;
@@ -74,7 +74,7 @@ public final class Mesh {
         verticesBuffer.put(positions).flip();
         glBindBuffer(GL_ARRAY_BUFFER, posVboId);
         glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, 0, 0);
+        glVertexAttribPointer(0, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         MemoryUtil.memFree(verticesBuffer);
 
@@ -92,7 +92,7 @@ public final class Mesh {
         texBuffer.put(texCoords).flip();
         glBindBuffer(GL_ARRAY_BUFFER, texVboId);
         glBufferData(GL_ARRAY_BUFFER, texBuffer, GL_STATIC_DRAW);
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+        glVertexAttribPointer(1, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
         MemoryUtil.memFree(texBuffer);
 
         // We're not placing data into the vao anymore
@@ -112,8 +112,7 @@ public final class Mesh {
 
         // Activate first texture unit
         glActiveTexture(GL_TEXTURE0);
-        // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, textureID);
+        GLStates.bindTexture(textureID);
 
         // Draw the mesh
         glBindVertexArray(vaoId);

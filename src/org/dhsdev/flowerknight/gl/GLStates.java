@@ -32,4 +32,20 @@ public final class GLStates {
         }
     }
 
+    /**
+     * Which texture is bound.
+     */
+    private static int boundTexture;
+
+    /**
+     * Binds a texture only if it's not already bound.
+     * @param tex the texture ID to bind
+     */
+    public static void bindTexture(int tex) {
+        if (boundTexture != tex) {
+            boundTexture = tex;
+            glBindTexture(GL_TEXTURE_2D, tex);
+        }
+    }
+
 }
