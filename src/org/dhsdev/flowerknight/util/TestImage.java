@@ -74,4 +74,13 @@ public final class TestImage {
         mesh.render(tex.id());
     }
 
+    /**
+     * Cleanup at the end - destroy mesh, shader, and texture.
+     */
+    public static void delete() {
+        mesh.destroy();
+        shader.destroy();
+        tex.delete();
+    }
+
 }

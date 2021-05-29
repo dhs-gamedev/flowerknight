@@ -25,7 +25,8 @@ public final class FlowerKnight {
         // Set up GLFW. Errors should be checked here later.
         glfwInit();
 
-        // Thanks, macOS!
+        // macOS needs to request a forward profile for a later
+        // version of OpenGL explicitly. Version 3.3, to be specific.
         if (GetOSType.getOSType() == OSType.MACOS) {
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -79,6 +80,8 @@ public final class FlowerKnight {
      * Clean up everything just for good practice.
      */
     public static void exit() {
+
+        TestImage.delete();
 
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.

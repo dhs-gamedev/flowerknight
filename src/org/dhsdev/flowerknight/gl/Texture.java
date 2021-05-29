@@ -28,10 +28,13 @@ public class Texture {
     public Texture(String fileName) throws IOException {
 
         PNGDecoder decoder = new PNGDecoder(new FileInputStream(fileName));
+
+        int width = decoder.getWidth(), height = decoder.getHeight();
+
         ByteBuffer buf = ByteBuffer.allocateDirect(
-                4 * decoder.getWidth() * decoder.getHeight()
+                4 * width * height
         );
-        decoder.decode(buf, decoder.getWidth() * 4, Format.RGBA);
+        decoder.decode(buf, width * 4, Format.RGBA);
         buf.flip();
 
         texId = glGenTextures();
@@ -39,8 +42,8 @@ public class Texture {
 
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, decoder.getWidth(),
-                decoder.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buf
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width,
+                height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buf
         );
 
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -53,6 +56,13 @@ public class Texture {
      */
     public int id() {
         return texId;
+    }
+
+    /**
+     * Delete this texture
+     */
+    public void delete() {
+        glDeleteTextures(texId);
     }
 
 }
