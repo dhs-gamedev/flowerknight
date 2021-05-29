@@ -106,4 +106,11 @@ public final class Shader {
         return Files.readString(Path.of(fileName));
     }
 
+    /**
+     * Bind this shader, so that rendering operations will use it.
+     */
+    public void bind() {
+        GLStates.bindID(this.id);
+    }
+
 }
