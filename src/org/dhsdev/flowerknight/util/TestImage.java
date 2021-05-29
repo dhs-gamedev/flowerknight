@@ -44,18 +44,21 @@ public final class TestImage {
             Logger.log("Could not create trivial shader", Severity.ERROR);
         }
 
-        float[] positions = new float[] {
+        var positions = new float[] {
             -0.5f, -0.5f,
             -0.5f,  0.5f,
              0.5f,  0.5f,
              0.5f, -0.5f,
         };
-        int[] indices = new int[] {
+
+        var indices = new int[] {
             0, 1, 3, 3, 1, 2,
         };
-        float[] texCoords = new float[] {
+
+        var texCoords = new float[] {
             0, 1, 0, 0, 1, 0, 1, 1,
         };
+
         mesh = new Mesh(positions, indices, texCoords);
 
         try {
