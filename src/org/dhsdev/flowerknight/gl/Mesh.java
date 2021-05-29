@@ -112,8 +112,7 @@ public final class Mesh {
 
         // Activate first texture unit
         glActiveTexture(GL_TEXTURE0);
-        // Bind the texture
-        glBindTexture(GL_TEXTURE_2D, textureID);
+        GLStates.bindTexture(textureID);
 
         // Draw the mesh
         glBindVertexArray(vaoId);
