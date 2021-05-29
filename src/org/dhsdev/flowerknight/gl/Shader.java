@@ -64,9 +64,9 @@ public final class Shader {
 
         if (glGetShaderi(progId, GL_COMPILE_STATUS) == 0) {
             // Check for error - if so, ...
-            String msg = glGetShaderInfoLog(progId, 1 << 10);
+            System.err.println(glGetShaderInfoLog(progId, 1 << 10));
             // TODO - use msg to log an error. For now ...
-            throw new GLException("Unable to compile shader, reason:\n" + msg);
+            throw new GLException("Unable to compile shader");
         }
 
         return progId;
@@ -90,7 +90,8 @@ public final class Shader {
 
         // Check for fatal errors. Non-fatal errors are fine. For sure.
         if (glGetProgrami(id, GL_LINK_STATUS) == 0) {
-            throw new GLException("Error linking shader: " + glGetProgramInfoLog(id, 1 << 10));
+            System.err.println(glGetProgramInfoLog(id, 1 << 10));
+            throw new GLException("Error linking shader");
         }
 
         // We don't need the individual shaders clogging up memory any longer.
@@ -174,10 +175,10 @@ public final class Shader {
      */
     public static void init() {
         try {
-            TRIVIAL_SHADER = new Shader("src/res/trivial_vert.glsl", "src/res/trivial_frag.glsl");
-            GAME_SHADER = new Shader("src/res/game_vert.glsl", "src/res/trivial_frag.glsl");
+            TRIVIAL_SHADER = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
+            GAME_SHADER = new Shader("src/shader/game_vert.glsl", "src/shader/trivial_frag.glsl");
         } catch (GLException | IOException e) {
-            Logger.log("Error creating shaders: " + e.getMessage(), Severity.ERROR);
+            Logger.log("Error creating shaders", Severity.ERROR);
         }
     }
 
