@@ -4,7 +4,6 @@
 
 # Build Files
 out/
-data/
 
 # BlueJ files
 *.ctxt
@@ -110,4 +109,4 @@ imgui.ini
 
 
 ### FlowerKnight Specific Files ###
-data/logs.txt
+
