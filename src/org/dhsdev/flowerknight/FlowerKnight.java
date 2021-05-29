@@ -1,5 +1,6 @@
 package org.dhsdev.flowerknight;
 
+import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -24,6 +25,14 @@ public final class FlowerKnight {
         // Set up GLFW. Errors should be checked here later.
         glfwInit();
 
+        // Thanks, macOS!
+        if (GetOSType.getOSType() == OSType.MACOS) {
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        }
+
         // Right now the window is non-resizable.
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
@@ -39,6 +48,8 @@ public final class FlowerKnight {
 
         glfwShowWindow(windowHandle);
 
+        TestImage.init();
+
     }
 
     /**
@@ -52,7 +63,8 @@ public final class FlowerKnight {
 
             glClear(GL_COLOR_BUFFER_BIT);
 
-            // Rendering goes here later
+            // Render test
+            TestImage.render();
 
             // Render everything to screen at once
             glfwSwapBuffers(windowHandle);
