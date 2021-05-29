@@ -3,6 +3,8 @@ package org.dhsdev.flowerknight;
 import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
 
+import java.util.Objects;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -13,6 +15,10 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * @author adamhutchings
  */
 public final class FlowerKnight {
+
+    private FlowerKnight() {
+        throw new IllegalStateException("FlowerKnight Class");
+    }
 
     private static long windowHandle;
 
@@ -38,11 +44,12 @@ public final class FlowerKnight {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         // Get the size of the screen height as a basis for window size.
-        int monitorHeight = glfwGetVideoMode(glfwGetPrimaryMonitor()).height();
+        int monitorHeight = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor())).height();
         int screenHeight = (int) (monitorHeight * 0.75f);
+        int screenWidth = (int) (monitorHeight * 0.75f);
 
         // Don't ask me what the two NULLs are for. I have no clue.
-        windowHandle = glfwCreateWindow(screenHeight, screenHeight, "FlowerKnight", NULL, NULL);
+        windowHandle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
 
         glfwMakeContextCurrent(windowHandle);
         GL.createCapabilities();
