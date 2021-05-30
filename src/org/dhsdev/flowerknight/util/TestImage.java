@@ -1,6 +1,5 @@
 package org.dhsdev.flowerknight.util;
 
-import org.dhsdev.flowerknight.gl.GLException;
 import org.dhsdev.flowerknight.gl.Mesh;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Texture;
