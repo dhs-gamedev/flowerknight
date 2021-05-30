@@ -54,6 +54,7 @@ public final class FlowerKnight {
         windowHandle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
 
         glfwMakeContextCurrent(windowHandle);
+        glfwSwapInterval(0);
         GL.createCapabilities();
 
         glfwShowWindow(windowHandle);
@@ -75,6 +76,8 @@ public final class FlowerKnight {
         // While it's open, clear screen and check for events.
         while ( !glfwWindowShouldClose(windowHandle) ) {
 
+            double beforeRender = glfwGetTime();
+
             glClear(GL_COLOR_BUFFER_BIT);
 
             // Render test
@@ -85,6 +88,9 @@ public final class FlowerKnight {
 
             glfwPollEvents();
 
+            double afterRender = glfwGetTime();
+
+            System.out.println(afterRender - beforeRender);
         }
 
     }
