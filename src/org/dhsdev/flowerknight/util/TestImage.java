@@ -1,6 +1,5 @@
 package org.dhsdev.flowerknight.util;
 
-import org.dhsdev.flowerknight.gl.GLException;
 import org.dhsdev.flowerknight.gl.Mesh;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Texture;
@@ -38,11 +37,7 @@ public final class TestImage {
      */
     public static void init() {
 
-        try {
-            shader = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
-        } catch (GLException | IOException e) {
-            Logger.log("Could not create trivial shader", Severity.ERROR);
-        }
+        shader = Shader.TRIVIAL_SHADER;
 
         var positions = new float[] {
             -0.5f, -0.5f,

@@ -1,8 +1,13 @@
 package org.dhsdev.flowerknight.gl;
 
+import org.dhsdev.flowerknight.util.Logger;
+import org.dhsdev.flowerknight.util.Severity;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.lwjgl.opengl.GL33.*;
 
@@ -21,11 +26,11 @@ public final class Shader {
      * @param fragLoc the file path containing the fragment shader code
      * @throws Exception if any error occurs during compilation
      */
-    public Shader(String vertLoc, String fragLoc) throws GLException, IOException {
+    private Shader(String vertLoc, String fragLoc) throws IOException {
 
         id = glCreateProgram();
         if (id == 0) {
-            throw new GLException("Could not initialize shader");
+            Logger.log("Could not initialize shader", Severity.ERROR);
         }
 
         int vertShader = loadShader(
@@ -38,6 +43,8 @@ public final class Shader {
 
         this.linkProgram(vertShader, fragShader);
 
+        Logger.log("Successfully created shader", Severity.DEBUG);
+
     }
 
     /**
@@ -47,21 +54,22 @@ public final class Shader {
      * @return the OpenGL handle of the shader
      * @throws Exception if the shader doesn't compile
      */
-    private int loadShader(String code, int type) throws GLException {
+    private int loadShader(String code, int type) {
 
         int progId = glCreateShader(type);
 
-        // TODO - check for error
-        // if (id == 0) { ... }
+        if (id == 0)
+            Logger.log("Could not initialize shader program", Severity.ERROR);
 
         glShaderSource(progId, code);
         glCompileShader(progId);
 
         if (glGetShaderi(progId, GL_COMPILE_STATUS) == 0) {
             // Check for error - if so, ...
-            String msg = glGetShaderInfoLog(progId, 1 << 10);
-            // TODO - use msg to log an error. For now ...
-            throw new GLException("Unable to compile shader, reason:\n" + msg);
+            Logger.log(
+                    "Error compiling shader: " + glGetShaderInfoLog(progId, 1 << 10)
+                , Severity.ERROR
+            );
         }
 
         return progId;
@@ -74,7 +82,7 @@ public final class Shader {
      * @param fragID the fragment shader ID
      * @throws Exception if some error occurs during linking
      */
-    private void linkProgram(int vertID, int fragID) throws GLException {
+    private void linkProgram(int vertID, int fragID) {
 
         // Attach the individual programs to the main shader program
         glAttachShader(id, vertID);
@@ -85,7 +93,10 @@ public final class Shader {
 
         // Check for fatal errors. Non-fatal errors are fine. For sure.
         if (glGetProgrami(id, GL_LINK_STATUS) == 0) {
-            throw new GLException("Error linking shader: " + glGetProgramInfoLog(id, 1 << 10));
+            Logger.log(
+                    "Error compiling shader: " + glGetProgramInfoLog(id, 1 << 10)
+                    , Severity.ERROR
+            );
         }
 
         // We don't need the individual shaders clogging up memory any longer.
@@ -119,6 +130,62 @@ public final class Shader {
     public void destroy() {
         // No need to unbind, because nothing should be rendering after anyway.
         glDeleteShader(id);
+    }
+
+    /**
+     * The uniforms of this shader - map a uniform name to its location in the
+     * shader program.
+     */
+    private final Map<String, Integer> uniforms = new HashMap<>();
+
+    /**
+     * Register a uniform name from the shader into the uniforms map so it can
+     * be edited later.
+     * @param name the name of the shader in the shader program
+     */
+    public void registerUniform(String name) {
+
+        int loc = glGetUniformLocation(this.id, name);
+        if (loc < 0) {
+            Logger.log("Could not find uniform: " + name, Severity.ERROR);
+        }
+
+        uniforms.put(name, loc);
+
+    }
+
+    /**
+     * Set a float uniform to a value.
+     * @param name the uniform name
+     * @param value the float value
+     */
+    public void setUniform(String name, float value) {
+        glUniform1f(uniforms.get(name), value);
+    }
+
+    /**
+     * Set a vec2 uniform to a value.
+     * @param name the uniform name
+     * @param value the array of two floats
+     */
+    public void setUniform(String name, float[] value) {
+        glUniform2fv(uniforms.get(name), value);
+    }
+
+    public static Shader TRIVIAL_SHADER;
+    public static Shader GAME_SHADER;
+
+    /**
+     * Initialize the shaders.
+     */
+    public static void init() {
+        try {
+            TRIVIAL_SHADER = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
+            GAME_SHADER = new Shader("src/shader/game_vert.glsl", "src/shader/trivial_frag.glsl");
+        } catch (IOException e) {
+            Logger.log("IOException creating shaders: ", Severity.ERROR);
+        }
+        Logger.log("All shaders successfully created", Severity.DEBUG);
     }
 
 }
