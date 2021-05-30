@@ -43,6 +43,8 @@ public final class Shader {
 
         this.linkProgram(vertShader, fragShader);
 
+        Logger.log("Successfully created shader", Severity.DEBUG);
+
     }
 
     /**
