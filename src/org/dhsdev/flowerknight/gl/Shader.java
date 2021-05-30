@@ -185,6 +185,7 @@ public final class Shader {
         } catch (IOException e) {
             Logger.log("IOException creating shaders: ", Severity.ERROR);
         }
+        Logger.log("All shaders successfully created", Severity.DEBUG);
     }
 
 }
