@@ -23,15 +23,16 @@ public class Texture {
     /**
      * Create a texture from a file.
      * @param fileName the name of the file
-     * @throws Exception if something goes wrong
+     * @throws IOException if something goes wrong
      */
     public Texture(String fileName) throws IOException {
 
-        PNGDecoder decoder = new PNGDecoder(new FileInputStream(fileName));
+        var decoder = new PNGDecoder(new FileInputStream(fileName));
 
-        int width = decoder.getWidth(), height = decoder.getHeight();
+        int width = decoder.getWidth();
+        int height = decoder.getHeight();
 
-        ByteBuffer buf = ByteBuffer.allocateDirect(
+        var buf = ByteBuffer.allocateDirect(
                 4 * width * height
         );
         decoder.decode(buf, width * 4, Format.RGBA);
@@ -52,7 +53,7 @@ public class Texture {
 
     /**
      * The ID of this texture, publicly visible.
-     * @return
+     * @return Text ID
      */
     public int id() {
         return texId;
