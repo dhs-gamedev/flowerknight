@@ -1,6 +1,7 @@
 package org.dhsdev.flowerknight;
 
 import org.dhsdev.flowerknight.game.Camera;
+import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
@@ -74,6 +75,8 @@ public final class FlowerKnight {
 
         // While it's open, clear screen and check for events.
         while ( !glfwWindowShouldClose(windowHandle) ) {
+
+            GameObject.updateAll();
 
             glClear(GL_COLOR_BUFFER_BIT);
 
