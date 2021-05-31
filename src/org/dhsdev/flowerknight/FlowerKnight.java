@@ -3,6 +3,7 @@ package org.dhsdev.flowerknight;
 import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
+import org.dhsdev.flowerknight.gl.Window;
 import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
 
@@ -23,7 +24,7 @@ public final class FlowerKnight {
         throw new IllegalStateException("FlowerKnight Class");
     }
 
-    private static long windowHandle;
+    private static Window window;
 
     /**
      * Perform the setup for the game. This initializes GLFW and creates a
@@ -43,21 +44,7 @@ public final class FlowerKnight {
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         }
 
-        // Right now the window is non-resizable.
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-        // Get the size of the screen height as a basis for window size.
-        int monitorHeight = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor())).height();
-        int screenHeight = (int) (monitorHeight * 0.75f);
-        int screenWidth = (int) (monitorHeight * 0.75f);
-
-        // Don't ask me what the two NULLs are for. I have no clue.
-        windowHandle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
-
-        glfwMakeContextCurrent(windowHandle);
-        GL.createCapabilities();
-
-        glfwShowWindow(windowHandle);
+        window = new Window();
 
         Shader.init();
 
@@ -74,19 +61,19 @@ public final class FlowerKnight {
     public static void mainloop() {
 
         // While it's open, clear screen and check for events.
-        while ( !glfwWindowShouldClose(windowHandle) ) {
+        while (window.isOpen()) {
 
             GameObject.updateAll();
 
-            glClear(GL_COLOR_BUFFER_BIT);
+            window.clear();
 
             // Render test
             TestImage.render();
 
             // Render everything to screen at once
-            glfwSwapBuffers(windowHandle);
+            window.displayAllUpdates();
 
-            glfwPollEvents();
+            window.callEventHandlers();
 
         }
 
@@ -101,7 +88,8 @@ public final class FlowerKnight {
 
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.
-        glfwDestroyWindow(windowHandle);
+        window.delete();
+
         glfwTerminate();
 
     }
