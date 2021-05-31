@@ -23,7 +23,7 @@ public class Logger {
      * @author jakeroggenbuck
      */
     public static synchronized void log(String message, Severity severity) {
-        final var logFile = new File("data/logs.txt");
+        final var logFile = new File("logs.txt");
 
         try {
             logFile.createNewFile();
