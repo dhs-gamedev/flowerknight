@@ -10,6 +10,11 @@ import java.util.List;
 public class GameObject {
 
     /**
+     * This contains all game objects in the game.
+     */
+    private static final List<GameObject> objects = new ArrayList();
+
+    /**
      * The strength of gravity. Until we get an actual game object, we have no
      * clue how fast this will make things fall, so keep it zero for now.
      */
@@ -73,11 +78,6 @@ public class GameObject {
         // TODO - collision, etc.
 
     }
-
-    /**
-     * This contains all game objects in the game.
-     */
-    private static final List<GameObject> objects = new ArrayList();
 
     /**
      * Tick everything, then update.
