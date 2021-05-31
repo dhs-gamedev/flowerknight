@@ -4,6 +4,8 @@ import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Window;
+import org.dhsdev.flowerknight.util.Logger;
+import org.dhsdev.flowerknight.util.Severity;
 import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
 
@@ -33,7 +35,11 @@ public final class FlowerKnight {
     public static void init() {
 
         // Set up GLFW. Errors should be checked here later.
-        glfwInit();
+        try {
+            glfwInit();
+        } catch (Throwable glfwInit){
+            Logger.log("GLFW Failed to Initialize", Severity.ERROR);
+        }
 
         // macOS needs to request a forward profile for a later
         // version of OpenGL explicitly. Version 3.3, to be specific.
