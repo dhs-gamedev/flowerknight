@@ -1,0 +1,57 @@
+[ 05-30-21 23:39:22 ] [ DEBUG ] Successfully created shader
+[ 05-30-21 23:39:22 ] [ DEBUG ] Successfully created shader
+[ 05-30-21 23:39:22 ] [ DEBUG ] All shaders successfully created
+[ 05-30-21 23:39:22 ] [ NORMAL ] Main initialization
+[ 05-30-21 23:39:25 ] [ NORMAL ] Main closed
+[ 05-31-21 00:00:06 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:00:06 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:03:53 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:03:53 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:04:32 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:04:32 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:04:47 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:04:47 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:13:34 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:13:34 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:13:46 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:13:46 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:22:39 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:22:39 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:25:11 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:25:11 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:25:53 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:25:53 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:28:09 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:28:09 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:28:16 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:28:16 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:28:21 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:28:21 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:28:29 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:28:29 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:30:39 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:30:39 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:30:47 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:30:47 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:31:01 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:31:01 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:31:11 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:31:11 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:40:18 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:40:18 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:41:11 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:41:11 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:50:29 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:50:29 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:50:32 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:50:32 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:51:32 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:51:32 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:51:40 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:51:40 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:55:28 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:55:28 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:58:25 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:58:25 ] [ DEBUG ] All shaders successfully created
+[ 05-31-21 00:58:43 ] [ ERROR ] IOException creating shaders: 
+[ 05-31-21 00:58:43 ] [ DEBUG ] All shaders successfully created

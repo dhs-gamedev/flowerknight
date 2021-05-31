@@ -12,7 +12,7 @@ public class GameObject {
     /**
      * This contains all game objects in the game.
      */
-    private static final List<GameObject> objects = new ArrayList();
+    private static final List<GameObject> objects = new ArrayList<>();
 
     /**
      * The strength of gravity. Until we get an actual game object, we have no
