@@ -1,2 +1,0 @@
-[ 05-31-21 01:17:55 ] [ ERROR ] IOException creating shaders: 
-[ 05-31-21 01:17:55 ] [ DEBUG ] All shaders successfully created
