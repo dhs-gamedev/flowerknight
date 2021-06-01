@@ -9,6 +9,7 @@ import org.dhsdev.flowerknight.util.Severity;
  * @author adamhutchings
  */
 public class Main {
+
     /**
      * Main driver code for the application.
      * @param args command line arguments - currently unused

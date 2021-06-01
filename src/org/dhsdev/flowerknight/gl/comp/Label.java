@@ -24,7 +24,7 @@ public class Label extends Component  {
 
     /**
      * Creates a new instance of a label
-     * @param name the name of this componenet
+     * @param name the name of this component
      * @param text the text to be displayed
      * @param x the x location
      * @param y the y location
@@ -58,6 +58,7 @@ public class Label extends Component  {
 
         try {
             tex = new Texture("res/logo.png");
+            Logger.log("Texture Loaded", Severity.DEBUG);
         } catch (IOException e) {
             Logger.log("Could not load texture", Severity.ERROR);
         }
@@ -79,4 +80,3 @@ public class Label extends Component  {
     }
 
 }
-

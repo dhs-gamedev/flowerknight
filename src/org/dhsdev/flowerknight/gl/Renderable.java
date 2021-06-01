@@ -1,13 +1,14 @@
 package org.dhsdev.flowerknight.gl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a renderable object
  * @author cameron
  */
 public interface Renderable {
-    public static ArrayList<Renderable> renderables = new ArrayList<Renderable>();
+    List<Renderable> renderables = new ArrayList<>();
 
     /**
      * Draws this object

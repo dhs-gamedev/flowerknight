@@ -12,7 +12,7 @@ public abstract class Component implements Renderable {
      * Creates a new instance of ui component
      * @param name the name of the componenet
      */
-    public Component(String name) {
+    protected Component(String name) {
         this.name = name;
 
     }
