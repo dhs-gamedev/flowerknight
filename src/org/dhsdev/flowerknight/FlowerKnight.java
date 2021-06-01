@@ -6,16 +6,9 @@ import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Window;
-import org.dhsdev.flowerknight.util.TestImage;
-import org.lwjgl.opengl.GL;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * This class contains all main control routines of the game. The "init",
@@ -54,8 +47,6 @@ public final class FlowerKnight {
 
         Camera.init();
 
-        //TestImage.init();
-
         Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
 
         Shader.SPOTLIGHT_SHADER.registerUniform("time");
@@ -76,9 +67,6 @@ public final class FlowerKnight {
             GameObject.updateAll();
 
             window.clear();
-
-            // Render test
-            //TestImage.render();
 
             // Iterate and draw all renderable object
             for (Renderable renderable : Renderable.renderables) {
@@ -103,7 +91,6 @@ public final class FlowerKnight {
         for (Renderable renderable : Renderable.renderables) {
             renderable.clear();
         }
-        //TestImage.delete();
 
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.
