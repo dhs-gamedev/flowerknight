@@ -174,6 +174,7 @@ public final class Shader {
 
     public static Shader TRIVIAL_SHADER;
     public static Shader GAME_SHADER;
+    public static Shader SPOTLIGHT_SHADER;
 
     /**
      * Initialize the shaders.
@@ -182,6 +183,7 @@ public final class Shader {
         try {
             TRIVIAL_SHADER = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
             GAME_SHADER = new Shader("src/shader/game_vert.glsl", "src/shader/trivial_frag.glsl");
+            SPOTLIGHT_SHADER = new Shader("src/shader/trivial_vert.glsl", "src/shader/spotlight_frag.glsl");
         } catch (IOException e) {
             Logger.log("IOException creating shaders: ", Severity.ERROR);
         }

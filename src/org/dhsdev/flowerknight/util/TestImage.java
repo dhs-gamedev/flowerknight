@@ -37,7 +37,7 @@ public final class TestImage {
      */
     public static void init() {
 
-        shader = Shader.TRIVIAL_SHADER;
+        shader = Shader.SPOTLIGHT_SHADER;
 
         var positions = new float[] {
             -0.5f, -0.5f,
@@ -51,7 +51,10 @@ public final class TestImage {
         };
 
         var texCoords = new float[] {
-            0, 1, 0, 0, 1, 0, 1, 1,
+            0.0f, 1.0f,
+            0.0f, 0.0f,
+            1.0f, 0.0f,
+            1.0f, 1.0f,
         };
 
         mesh = new Mesh(positions, indices, texCoords);
