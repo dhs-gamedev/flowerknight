@@ -6,6 +6,11 @@ import org.dhsdev.flowerknight.util.Severity;
 
 import java.io.IOException;
 
+/**
+ * A label that can display text WIP
+ * Right now it just creates an image
+ * @author cameron
+ */
 public class Label extends Component  {
 
     private String text;
@@ -17,6 +22,15 @@ public class Label extends Component  {
     private Texture tex;
     private Shader shader;
 
+    /**
+     * Creates a new instance of a label
+     * @param name the name of this componenet
+     * @param text the text to be displayed
+     * @param x the x location
+     * @param y the y location
+     * @param offsetX the x offset
+     * @param offsetY the y offset
+     */
     public Label(String name, String text, float x, float y, float offsetX, float offsetY) {
         super(name);
         this.text = text;

@@ -26,8 +26,6 @@ public final class FlowerKnight {
 
     private static long windowHandle;
 
-    private static ArrayList<Renderable> renderables = new ArrayList<Renderable>();
-
     /**
      * Perform the setup for the game. This initializes GLFW and creates a
      * window handle.
@@ -64,7 +62,7 @@ public final class FlowerKnight {
 
         //TestImage.init();
 
-        renderables.add(new Label("Test", "Test Text", 0.1f,0.1f, 0.5f, 0.1f));
+        Renderable.renderables.add(new Label("Test", "Test Text", 0.1f,0.1f, 0.5f, 0.1f));
 
     }
 
@@ -83,7 +81,7 @@ public final class FlowerKnight {
             //TestImage.render();
 
             // Iterate and draw all renderable object
-            for (Renderable renderable : renderables) {
+            for (Renderable renderable : Renderable.renderables) {
                 renderable.draw();
             }
 
@@ -102,7 +100,7 @@ public final class FlowerKnight {
      */
     public static void exit() {
 
-        for (Renderable renderable : renderables) {
+        for (Renderable renderable : Renderable.renderables) {
             renderable.clear();
         }
         //TestImage.delete();
@@ -111,7 +109,6 @@ public final class FlowerKnight {
         // but still good practice.
         glfwDestroyWindow(windowHandle);
         glfwTerminate();
-
     }
 
 }
