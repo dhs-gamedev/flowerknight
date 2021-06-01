@@ -5,6 +5,7 @@
 # Build Files
 out/
 data/
+build/
 
 # BlueJ files
 *.ctxt
@@ -107,7 +108,8 @@ imgui.ini
 ### IntelliJ Specific Java Settings ###
 .idea/
 *.iml
+.gradle/
 
 
 ### FlowerKnight Specific Files ###
-data/logs.txt
+logs.txt
