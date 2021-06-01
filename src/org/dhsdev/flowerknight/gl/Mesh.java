@@ -11,6 +11,7 @@ import static org.lwjgl.opengl.GL33.*;
  * A mesh contains a collection of arrays containing the data that will be sent
  * to the GPU to be rendered.
  * @author adamhutchings
+ * @author Brandon Qi
  */
 public final class Mesh {
 
@@ -58,47 +59,49 @@ public final class Mesh {
      */
     public Mesh(float[] positions, int[] indices, float[] texCoords) {
 
-        // The buffers we'll place the data in
-        FloatBuffer verticesBuffer;
-        FloatBuffer texBuffer;
-        IntBuffer indexBuffer;
-
         vertexCount = indices.length;
 
         vaoId = glGenVertexArrays();
         glBindVertexArray(vaoId);
 
         // Vertices
-        posVboId = glGenBuffers();
-        verticesBuffer = MemoryUtil.memAllocFloat(positions.length);
-        verticesBuffer.put(positions).flip();
-        glBindBuffer(GL_ARRAY_BUFFER, posVboId);
-        glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
+        posVboId = getVboId(positions);
         glVertexAttribPointer(0, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        MemoryUtil.memFree(verticesBuffer);
 
         // Indices
-        idxVboId = glGenBuffers();
-        indexBuffer = MemoryUtil.memAllocInt(indices.length);
-        indexBuffer.put(indices).flip();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idxVboId);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
-        MemoryUtil.memFree(indexBuffer);
+        idxVboId = getVboId(indices);
 
         // Texture coordinates
-        texVboId = glGenBuffers();
-        texBuffer = MemoryUtil.memAllocFloat(texCoords.length);
-        texBuffer.put(texCoords).flip();
-        glBindBuffer(GL_ARRAY_BUFFER, texVboId);
-        glBufferData(GL_ARRAY_BUFFER, texBuffer, GL_STATIC_DRAW);
+        texVboId = getVboId(texCoords);
         glVertexAttribPointer(1, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
-        MemoryUtil.memFree(texBuffer);
 
         // We're not placing data into the vao anymore
         // TODO - use GLStates
         glBindVertexArray(0);
 
+    }
+
+    private int getVboId(float[] arr) {
+        final int vboId = glGenBuffers();
+        FloatBuffer buffer;
+        buffer = MemoryUtil.memAllocFloat(arr.length);
+        buffer.put(arr).flip();
+        glBindBuffer(GL_ARRAY_BUFFER, vboId);
+        glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+        MemoryUtil.memFree(buffer);
+        return vboId;
+    }
+
+    private int getVboId(int[] arr) {
+        final int vboId = glGenBuffers();
+        IntBuffer buffer;
+        buffer = MemoryUtil.memAllocInt(arr.length);
+        buffer.put(arr).flip();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboId);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+        MemoryUtil.memFree(buffer);
+        return vboId;
     }
 
     /**

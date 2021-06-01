@@ -37,11 +37,7 @@ public class Label extends Component  {
         this.x = x;
         this.y = y;
 
-        try {
-            shader = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
-        } catch (GLException | IOException e) {
-            Logger.log("Could not create trivial shader", Severity.ERROR);
-        }
+        shader = Shader.SPOTLIGHT_SHADER;
 
         var positions = new float[] {
                 -x + offsetX, -y + offsetY,

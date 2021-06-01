@@ -2,6 +2,10 @@ package org.dhsdev.flowerknight;
 
 import org.dhsdev.flowerknight.gl.Renderable;
 import org.dhsdev.flowerknight.gl.comp.Label;
+import org.dhsdev.flowerknight.game.Camera;
+import org.dhsdev.flowerknight.game.GameObject;
+import org.dhsdev.flowerknight.gl.Shader;
+import org.dhsdev.flowerknight.gl.Window;
 import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
 
@@ -24,7 +28,7 @@ public final class FlowerKnight {
         throw new IllegalStateException("FlowerKnight Class");
     }
 
-    private static long windowHandle;
+    private static Window window;
 
     /**
      * Perform the setup for the game. This initializes GLFW and creates a
@@ -44,25 +48,17 @@ public final class FlowerKnight {
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         }
 
-        // Right now the window is non-resizable.
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+        window = new Window();
 
-        // Get the size of the screen height as a basis for window size.
-        int monitorHeight = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor())).height();
-        int screenHeight = (int) (monitorHeight * 0.75f);
-        int screenWidth = (int) (monitorHeight * 0.75f);
+        Shader.init();
 
-        // Don't ask me what the two NULLs are for. I have no clue.
-        windowHandle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
-
-        glfwMakeContextCurrent(windowHandle);
-        GL.createCapabilities();
-
-        glfwShowWindow(windowHandle);
+        Camera.init();
 
         //TestImage.init();
 
-        Renderable.renderables.add(new Label("Test", "Test Text", 0.1f,0.1f, 0.5f, 0.1f));
+        Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
+
+        Shader.SPOTLIGHT_SHADER.registerUniform("time");
 
     }
 
@@ -73,9 +69,13 @@ public final class FlowerKnight {
     public static void mainloop() {
 
         // While it's open, clear screen and check for events.
-        while ( !glfwWindowShouldClose(windowHandle) ) {
+        while (window.isOpen()) {
 
-            glClear(GL_COLOR_BUFFER_BIT);
+            Shader.SPOTLIGHT_SHADER.setUniform("time", (float) glfwGetTime());
+
+            GameObject.updateAll();
+
+            window.clear();
 
             // Render test
             //TestImage.render();
@@ -87,9 +87,9 @@ public final class FlowerKnight {
 
 
             // Render everything to screen at once
-            glfwSwapBuffers(windowHandle);
+            window.displayAllUpdates();
 
-            glfwPollEvents();
+            window.callEventHandlers();
 
         }
 
@@ -107,7 +107,8 @@ public final class FlowerKnight {
 
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.
-        glfwDestroyWindow(windowHandle);
+        window.delete();
+
         glfwTerminate();
     }
 
