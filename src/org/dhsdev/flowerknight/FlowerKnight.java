@@ -1,8 +1,12 @@
 package org.dhsdev.flowerknight;
 
+import org.dhsdev.flowerknight.gl.Renderable;
+import org.dhsdev.flowerknight.gl.comp.Label;
 import org.dhsdev.flowerknight.util.TestImage;
 import org.lwjgl.opengl.GL;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -21,6 +25,8 @@ public final class FlowerKnight {
     }
 
     private static long windowHandle;
+
+    private static ArrayList<Renderable> renderables = new ArrayList<Renderable>();
 
     /**
      * Perform the setup for the game. This initializes GLFW and creates a
@@ -56,7 +62,9 @@ public final class FlowerKnight {
 
         glfwShowWindow(windowHandle);
 
-        TestImage.init();
+        //TestImage.init();
+
+        renderables.add(new Label("Test", "Test Text", 0.1f,0.1f, 0.5f, 0.1f));
 
     }
 
@@ -72,7 +80,13 @@ public final class FlowerKnight {
             glClear(GL_COLOR_BUFFER_BIT);
 
             // Render test
-            TestImage.render();
+            //TestImage.render();
+
+            // Iterate and draw all renderable object
+            for (Renderable renderable : renderables) {
+                renderable.draw();
+            }
+
 
             // Render everything to screen at once
             glfwSwapBuffers(windowHandle);
@@ -88,7 +102,10 @@ public final class FlowerKnight {
      */
     public static void exit() {
 
-        TestImage.delete();
+        for (Renderable renderable : renderables) {
+            renderable.clear();
+        }
+        //TestImage.delete();
 
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.
