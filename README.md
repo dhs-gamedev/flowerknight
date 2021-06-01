@@ -1,7 +1,7 @@
 # flowerknight
 
 ## Overview
-This is a game we are making over the summer.
+This is a game we are making over the summer as a demo for our club.
 
 ## Details
 We are using Java 16 and OpenGL
