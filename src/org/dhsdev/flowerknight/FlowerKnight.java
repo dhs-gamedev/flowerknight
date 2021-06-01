@@ -52,6 +52,8 @@ public final class FlowerKnight {
 
         TestImage.init();
 
+        Shader.SPOTLIGHT_SHADER.registerUniform("time");
+
     }
 
     /**
@@ -62,6 +64,8 @@ public final class FlowerKnight {
 
         // While it's open, clear screen and check for events.
         while (window.isOpen()) {
+
+            Shader.SPOTLIGHT_SHADER.setUniform("time", (float) glfwGetTime());
 
             GameObject.updateAll();
 
