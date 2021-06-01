@@ -7,6 +7,11 @@ In the game, you are a knight who needs to protect and transport a flower.
 ## Details
 We are using Java 16 and OpenGL
 
+## Contributing
+All PRs must have two reviews before merge, and changes to the code (things in src) must have a corresponding issue attached.
+It's always welcome to make new issues, and review PRs.
+We will assign issues to people, but you can also ask on the issue if you want to be assigned that issue.
+
 ## Requirements
 The project is built using the latest version of Open Java Development Kit (Open JDK)
 `java-latest-openjdk-devel`
