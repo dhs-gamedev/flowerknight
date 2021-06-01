@@ -1,17 +1,14 @@
 package org.dhsdev.flowerknight;
 
+import org.dhsdev.flowerknight.gl.Renderable;
+import org.dhsdev.flowerknight.gl.comp.Label;
 import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Window;
-import org.dhsdev.flowerknight.util.TestImage;
-import org.lwjgl.opengl.GL;
-
-import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * This class contains all main control routines of the game. The "init",
@@ -50,7 +47,7 @@ public final class FlowerKnight {
 
         Camera.init();
 
-        TestImage.init();
+        Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
 
         Shader.SPOTLIGHT_SHADER.registerUniform("time");
 
@@ -71,8 +68,11 @@ public final class FlowerKnight {
 
             window.clear();
 
-            // Render test
-            TestImage.render();
+            // Iterate and draw all renderable object
+            for (Renderable renderable : Renderable.renderables) {
+                renderable.draw();
+            }
+
 
             // Render everything to screen at once
             window.displayAllUpdates();
@@ -88,14 +88,15 @@ public final class FlowerKnight {
      */
     public static void exit() {
 
-        TestImage.delete();
+        for (Renderable renderable : Renderable.renderables) {
+            renderable.clear();
+        }
 
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.
         window.delete();
 
         glfwTerminate();
-
     }
 
 }
