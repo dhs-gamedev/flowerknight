@@ -1,11 +1,15 @@
 package org.dhsdev.flowerknight;
 
+import org.dhsdev.flowerknight.gl.KFont;
 import org.dhsdev.flowerknight.gl.Renderable;
+import org.dhsdev.flowerknight.gl.comp.Logo;
 import org.dhsdev.flowerknight.gl.comp.Label;
 import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Window;
+
+import java.awt.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
@@ -47,7 +51,10 @@ public final class FlowerKnight {
 
         Camera.init();
 
-        Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
+        KFont font = new KFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 18),  true);
+
+        //Renderable.renderables.add(new Logo("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
+        Renderable.renderables.add(new Label(font, "main_text", "Test", 50, 50));
 
         Shader.SPOTLIGHT_SHADER.registerUniform("time");
 
