@@ -8,12 +8,19 @@ import java.nio.ByteBuffer;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
+import org.dhsdev.flowerknight.util.Logger;
+import org.dhsdev.flowerknight.util.Severity;
 
 /**
  * A texture we can use.
  * @author adamhutchings
  */
 public class Texture {
+
+    /**
+     * What size every texture must be.
+     */
+    private static final int TEX_SIZE = 1024;
 
     /**
      * The OpenGL ID of the texture.
@@ -31,6 +38,10 @@ public class Texture {
 
         int width = decoder.getWidth();
         int height = decoder.getHeight();
+
+        if ( (width != 1024) || (height != 1024) ) {
+            Logger.log("Image " + fileName + " was not 1024x1024, was " + width + "x" + height + "instead.", Severity.ERROR);
+        }
 
         var buf = ByteBuffer.allocateDirect(
                 4 * width * height
