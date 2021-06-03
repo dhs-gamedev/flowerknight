@@ -22,7 +22,7 @@ public final class Camera {
     /**
      * The zoom of the camera.
      */
-    private static float zoom = 0.1f;
+    private static float zoom = 1.0f;
 
     /**
      * Register the two needed uniforms.
@@ -38,6 +38,8 @@ public final class Camera {
      * Update the shader values, for when the camera position changes.
      */
     public static void updateShaders() {
+
+        Shader.GAME_SHADER.bind();
 
         Shader.GAME_SHADER.setUniform("cameraLoc", new float[] { x, y });
         Shader.GAME_SHADER.setUniform("zoom", zoom);

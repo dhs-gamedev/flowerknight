@@ -62,7 +62,10 @@ public final class FlowerKnight {
         // While it's open, clear screen and check for events.
         while (window.isOpen()) {
 
+            Shader.SPOTLIGHT_SHADER.bind();
             Shader.SPOTLIGHT_SHADER.setUniform("time", (float) glfwGetTime());
+
+            Camera.updateShaders();
 
             GameObject.updateAll();
 
