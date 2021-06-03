@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
+import org.lwjgl.opengl.GL32;
 
 /**
  * A texture we can use.
@@ -49,6 +50,21 @@ public class Texture {
 
         glGenerateMipmap(GL_TEXTURE_2D);
 
+    }
+
+    public Texture(ByteBuffer buffer, int width, int height) {
+
+        texId = glGenTextures();
+        System.out.println(texId);
+        glBindTexture(GL_TEXTURE_2D, texId);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width,
+                height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer
+        );
+
+        glActiveTexture(GL_TEXTURE0);
+
+        glGenerateMipmap(GL_TEXTURE_2D);
     }
 
     /**
