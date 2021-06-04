@@ -111,12 +111,13 @@ public final class Mesh {
             pos * (stride + 1), 1,
         };
 
+        glBindVertexArray(vaoId);
+
         // Texture coordinates
         int texVboId = getVboId(texCoords);
         glVertexAttribPointer(1, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
 
         // Draw the mesh
-        glBindVertexArray(vaoId);
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
