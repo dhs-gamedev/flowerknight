@@ -20,11 +20,15 @@ public final class Shader {
 
     private final int id;
 
+    private static Shader trivialShader;
+    private static Shader gameShader;
+    private static Shader spotlightShader;
+
     /**
      * Create a shader from its two source files.
      * @param vertLoc the file path containing the vertex shader code
      * @param fragLoc the file path containing the fragment shader code
-     * @throws Exception if any error occurs during compilation
+     * @throws RuntimeException if any error occurs during compilation
      */
     private Shader(String vertLoc, String fragLoc) throws IOException {
 
@@ -52,9 +56,9 @@ public final class Shader {
      * @param code the string containing the shader code.
      * @param type which type of shader (vertex, fragment, etc)
      * @return the OpenGL handle of the shader
-     * @throws Exception if the shader doesn't compile
+     * @throws RuntimeException if the shader doesn't compile
      */
-    private int loadShader(String code, int type) {
+    private int loadShader(String code, int type){
 
         int progId = glCreateShader(type);
 
@@ -80,7 +84,7 @@ public final class Shader {
      * Link the vertex and fragment shaders together into one program.
      * @param vertID the vertex shader ID
      * @param fragID the fragment shader ID
-     * @throws Exception if some error occurs during linking
+     * @throws RuntimeException if some error occurs during linking
      */
     private void linkProgram(int vertID, int fragID) {
 
@@ -111,7 +115,7 @@ public final class Shader {
      * the shader code to be passed as input.
      * @param fileName which file to read
      * @return the complete contents of the file
-     * @throws Exception if the file doesn't exist or another I/O error
+     * @throws IOException if the file doesn't exist or another I/O error
      */
     private static String loadFileAsString(String fileName) throws IOException {
         return Files.readString(Path.of(fileName));
@@ -172,18 +176,26 @@ public final class Shader {
         glUniform2fv(uniforms.get(name), value);
     }
 
-    public static Shader TRIVIAL_SHADER;
-    public static Shader GAME_SHADER;
-    public static Shader SPOTLIGHT_SHADER;
+    public static Shader getTrivialShader(){
+        return trivialShader;
+    }
+
+    public static Shader getGameShader(){
+        return gameShader;
+    }
+
+    public static Shader getSpotlightShader() {
+        return spotlightShader;
+    }
 
     /**
      * Initialize the shaders.
      */
     public static void init() {
         try {
-            TRIVIAL_SHADER = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
-            GAME_SHADER = new Shader("src/shader/game_vert.glsl", "src/shader/trivial_frag.glsl");
-            SPOTLIGHT_SHADER = new Shader("src/shader/trivial_vert.glsl", "src/shader/spotlight_frag.glsl");
+            trivialShader = new Shader("src/shader/trivial_vert.glsl", "src/shader/trivial_frag.glsl");
+            gameShader = new Shader("src/shader/game_vert.glsl", "src/shader/trivial_frag.glsl");
+            spotlightShader = new Shader("src/shader/trivial_vert.glsl", "src/shader/spotlight_frag.glsl");
         } catch (IOException e) {
             Logger.log("IOException creating shaders: ", Severity.ERROR);
         }

@@ -11,7 +11,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 /**
  * This class is a wrapper around the OpenGL window.
- * @author adamhutchings
+ * @author adamhutchings, Shuzhengz
  */
 public class Window {
 
@@ -25,22 +25,28 @@ public class Window {
      *   - Make the window non-resizable.
      *   - Make a square window, side length 3/4 the height of the screen
      *   - Make it visible and create an OpenGL context for it.
+     *   @param samples MSAA Samples to be applied
      */
-    public Window() {
+    public Window(int samples) {
 
         // Right now the window is non-resizable.
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+        // Hint MSAA
+        glfwWindowHint(GLFW_SAMPLES, samples);
 
         // Get the size of the screen height as a basis for window size.
         int monitorHeight = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor())).height();
         int screenHeight = (int) (monitorHeight * 0.75f);
         int screenWidth = (int) (monitorHeight * 0.75f);
-
         // Don't ask me what the two NULLs are for. I have no clue.
         handle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
 
         glfwMakeContextCurrent(handle);
         GL.createCapabilities();
+
+        // Enable MSAA
+        glEnable(GL_MULTISAMPLE);
 
         glfwShowWindow(handle);
     }
