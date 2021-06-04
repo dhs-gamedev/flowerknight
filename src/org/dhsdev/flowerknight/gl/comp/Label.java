@@ -19,7 +19,7 @@ public class Label extends Component  {
     private float offsetX;
     private float offsetY;
     private Mesh mesh;
-    private Texture tex;
+    private TextureEnum tex;
     private Shader shader;
 
     /**
@@ -50,33 +50,20 @@ public class Label extends Component  {
                 0, 1, 3, 3, 1, 2,
         };
 
-        var texCoords = new float[] {
-                0, 1, 0, 0, 1, 0, 1, 1,
-        };
-
-        mesh = new Mesh(positions, indices, texCoords);
-
-        try {
-            tex = new Texture("res/logo.png");
-            Logger.log("Texture Loaded", Severity.DEBUG);
-        } catch (IOException e) {
-            Logger.log("Could not load texture", Severity.ERROR);
-        }
-
+        mesh = new Mesh(positions, indices);
 
     }
 
     @Override
     public void draw() {
         shader.bind();
-        mesh.render(tex.id());
+        mesh.render(TextureEnum.LOGO);
     }
 
     @Override
     public void clear() {
         mesh.destroy();
         shader.destroy();
-        tex.delete();
     }
 
 }

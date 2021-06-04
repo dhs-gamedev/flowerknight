@@ -40,12 +40,6 @@ public final class Mesh {
     private final int idxVboId;
 
     /**
-     * Instead of positions in the game world, this is the positions inside the
-     * currently bound texture that will be rendered.
-     */
-    private final int texVboId;
-
-    /**
      * Avoid repeated calculations by storing this number.
      */
     private final int vertexCount;
@@ -55,9 +49,8 @@ public final class Mesh {
      * buffers to draw, and texture coordinates.
      * @param positions the game positions
      * @param indices the indices to draw
-     * @param texCoords the texture coordinates
      */
-    public Mesh(float[] positions, int[] indices, float[] texCoords) {
+    public Mesh(float[] positions, int[] indices) {
 
         vertexCount = indices.length;
 
@@ -71,10 +64,6 @@ public final class Mesh {
 
         // Indices
         idxVboId = getVboId(indices);
-
-        // Texture coordinates
-        texVboId = getVboId(texCoords);
-        glVertexAttribPointer(1, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
 
         // We're not placing data into the vao anymore
         // TODO - use GLStates
@@ -107,18 +96,30 @@ public final class Mesh {
     /**
      * Render this mesh. This is useless right now because we don't have texture
      * code.
-     * @param textureID the OpenGL textureID to use.
+     * @param texture the OpenGL textureID to use.
      */
-    public void render(int textureID) {
+    public void render(TextureEnum texture) {
 
-        // TODO - use GLStates
+        int pos = texture.ordinal();
+        int texMax = TextureEnum.values().length;
 
-        // Activate first texture unit
-        glActiveTexture(GL_TEXTURE0);
-        GLStates.bindTexture(textureID);
+        float stride = 1 / (float) texMax;
+
+        // We select a square from the large texture atlas image.
+        var texCoords = new float[] {
+            pos * stride,       1,
+            pos * stride,       0,
+            (pos + 1) * stride, 0,
+            (pos + 1) * stride, 1,
+        };
+
+        glBindVertexArray(vaoId);
+
+        // Texture coordinates
+        int texVboId = getVboId(texCoords);
+        glVertexAttribPointer(1, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
 
         // Draw the mesh
-        glBindVertexArray(vaoId);
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
@@ -126,6 +127,8 @@ public final class Mesh {
         // Clear everything for next mesh
         glDisableVertexAttribArray(0);
         glBindVertexArray(0);
+
+        glDeleteBuffers(texVboId);
 
     }
 
@@ -144,7 +147,6 @@ public final class Mesh {
         // Flush all data
         glDeleteBuffers(posVboId);
         glDeleteBuffers(idxVboId);
-        glDeleteBuffers(texVboId);
 
         // Clear the VAO
         glBindVertexArray(0);

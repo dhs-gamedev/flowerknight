@@ -1,6 +1,7 @@
 package org.dhsdev.flowerknight;
 
 import org.dhsdev.flowerknight.gl.Renderable;
+import org.dhsdev.flowerknight.gl.TextureAtlas;
 import org.dhsdev.flowerknight.gl.comp.Label;
 import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
@@ -54,6 +55,8 @@ public final class FlowerKnight {
 
         Shader.getSpotlightShader().registerUniform("time");
 
+        TextureAtlas.loadAllTextures();
+
     }
 
     /**
@@ -101,6 +104,8 @@ public final class FlowerKnight {
         // Not necessary, because the OS will delete everything anyway,
         // but still good practice.
         window.delete();
+
+        TextureAtlas.delete();
 
         glfwTerminate();
     }
