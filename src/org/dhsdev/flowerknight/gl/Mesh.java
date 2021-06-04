@@ -107,8 +107,8 @@ public final class Mesh {
         float[] texCoords = {
             pos * stride,       1,
             pos * stride,       0,
-            pos * (stride + 1), 0,
-            pos * (stride + 1), 1,
+            (pos + 1) * stride, 0,
+            (pos + 1) * stride, 1,
         };
 
         glBindVertexArray(vaoId);
