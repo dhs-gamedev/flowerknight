@@ -104,6 +104,7 @@ public final class Mesh {
 
         float stride = 1.0f / texMax;
 
+        // We select a square from the large texture atlas image.
         float[] texCoords = {
             pos * stride,       1,
             pos * stride,       0,

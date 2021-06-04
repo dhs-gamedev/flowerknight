@@ -57,6 +57,7 @@ public final class TextureAtlas {
             int width = decoder.getWidth();
             int height = decoder.getHeight();
 
+            // Check to make sure it will evenly fit into the atlas.
             if ( (width != TEX_SIZE) || (height != TEX_SIZE) ) {
                 Logger.log("Image " + fileName + " was not 1024x1024, was " + width + "x" + height + "instead.", Severity.ERROR);
             }
@@ -84,6 +85,7 @@ public final class TextureAtlas {
 
         glGenerateMipmap(GL_TEXTURE_2D);
 
+        // This will always be the active texture.
         glActiveTexture(GL_TEXTURE0);
 
         MemoryUtil.memFree(atlasData);
