@@ -59,6 +59,11 @@ public final class TextureAtlas {
                 Logger.log("Could not load texture " + fileName, Severity.ERROR);
             }
 
+            // Should never happen.
+            if (decoder == null) {
+                Logger.log("Decoder was null", Severity.ERROR);
+            }
+
             int width = decoder.getWidth();
             int height = decoder.getHeight();
 
