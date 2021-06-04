@@ -9,6 +9,10 @@ import org.dhsdev.flowerknight.gl.Shader;
  */
 public final class Camera {
 
+    private Camera() {
+        // The camera
+    }
+
     /**
      * The x-position of the camera.
      */
@@ -22,7 +26,7 @@ public final class Camera {
     /**
      * The zoom of the camera.
      */
-    private static final float zoom = 1.0f;
+    private static final float ZOOM = 1.0f;
 
     /**
      * Register the two needed uniforms.
@@ -42,7 +46,7 @@ public final class Camera {
         Shader.getGameShader().bind();
 
         Shader.getGameShader().setUniform("cameraLoc", new float[] { x, y });
-        Shader.getGameShader().setUniform("zoom", zoom);
+        Shader.getGameShader().setUniform("zoom", ZOOM);
 
     }
 
