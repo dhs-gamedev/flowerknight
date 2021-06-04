@@ -8,6 +8,8 @@ import java.nio.ByteBuffer;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
+import org.dhsdev.flowerknight.util.Logger;
+import org.dhsdev.flowerknight.util.Severity;
 
 /**
  * A texture we can use.
@@ -35,7 +37,12 @@ public class Texture {
         var buf = ByteBuffer.allocateDirect(
                 4 * width * height
         );
-        decoder.decode(buf, width * 4, Format.RGBA);
+
+        try {
+            decoder.decode(buf, width * 4, Format.RGBA);
+        } catch (RuntimeException de) {
+            Logger.log("PNG Decode Failed", Severity.ERROR);
+        }
         buf.flip();
 
         texId = glGenTextures();
