@@ -26,7 +26,7 @@ public final class Camera {
     /**
      * The zoom of the camera.
      */
-    private static final float ZOOM = 1.0f;
+    private static float ZOOM = 1.0f;
 
     /**
      * Register the two needed uniforms.
