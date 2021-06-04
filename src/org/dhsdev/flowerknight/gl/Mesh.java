@@ -100,12 +100,13 @@ public final class Mesh {
      */
     public void render(TextureEnum texture) {
 
-        float pos = texture.ordinal(), texMax = TextureEnum.values().length;
+        int pos = texture.ordinal();
+        int texMax = TextureEnum.values().length;
 
-        float stride = 1.0f / texMax;
+        float stride = 1 / (float) texMax;
 
         // We select a square from the large texture atlas image.
-        float[] texCoords = {
+        var texCoords = new float[] {
             pos * stride,       1,
             pos * stride,       0,
             (pos + 1) * stride, 0,
