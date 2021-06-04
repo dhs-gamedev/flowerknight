@@ -37,7 +37,7 @@ public class Label extends Component  {
         this.x = x;
         this.y = y;
 
-        shader = Shader.SPOTLIGHT_SHADER;
+        shader = Shader.getSpotlightShader();
 
         var positions = new float[] {
                 -x + offsetX, -y + offsetY,

@@ -52,7 +52,7 @@ public final class FlowerKnight {
 
         Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
 
-        Shader.SPOTLIGHT_SHADER.registerUniform("time");
+        Shader.getSpotlightShader().registerUniform("time");
 
     }
 
@@ -65,8 +65,8 @@ public final class FlowerKnight {
         // While it's open, clear screen and check for events.
         while (window.isOpen()) {
 
-            Shader.SPOTLIGHT_SHADER.bind();
-            Shader.SPOTLIGHT_SHADER.setUniform("time", (float) glfwGetTime());
+            Shader.getSpotlightShader().bind();
+            Shader.getSpotlightShader().setUniform("time", (float) glfwGetTime());
 
             Camera.updateShaders();
 

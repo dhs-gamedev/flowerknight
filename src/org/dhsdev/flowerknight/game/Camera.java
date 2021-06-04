@@ -22,15 +22,15 @@ public final class Camera {
     /**
      * The zoom of the camera.
      */
-    private static float zoom = 1.0f;
+    private static final float zoom = 1.0f;
 
     /**
      * Register the two needed uniforms.
      */
     public static void init() {
 
-        Shader.GAME_SHADER.registerUniform("cameraLoc");
-        Shader.GAME_SHADER.registerUniform("zoom");
+        Shader.getGameShader().registerUniform("cameraLoc");
+        Shader.getGameShader().registerUniform("zoom");
 
     }
 
@@ -39,10 +39,10 @@ public final class Camera {
      */
     public static void updateShaders() {
 
-        Shader.GAME_SHADER.bind();
+        Shader.getGameShader().bind();
 
-        Shader.GAME_SHADER.setUniform("cameraLoc", new float[] { x, y });
-        Shader.GAME_SHADER.setUniform("zoom", zoom);
+        Shader.getGameShader().setUniform("cameraLoc", new float[] { x, y });
+        Shader.getGameShader().setUniform("zoom", zoom);
 
     }
 
