@@ -20,6 +20,11 @@ import java.util.Map;
 public final class TextureAtlas {
 
     /**
+     * NO!
+     */
+    private TextureAtlas() {}
+
+    /**
      * The map from textures to paths.
      */
     private static final Map<TextureEnum, String> paths = new EnumMap<>(TextureEnum.class) {{
