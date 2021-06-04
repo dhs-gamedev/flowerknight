@@ -61,5 +61,10 @@ public class Logger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (severity == Severity.ERROR) {
+            System.exit(-1);
+        }
+
     }
 }
