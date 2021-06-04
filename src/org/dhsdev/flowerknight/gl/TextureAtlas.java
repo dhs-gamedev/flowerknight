@@ -10,7 +10,7 @@ import org.lwjgl.system.MemoryUtil;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -22,7 +22,7 @@ public final class TextureAtlas {
     /**
      * The map from textures to paths.
      */
-    private static final Map<TextureEnum, String> paths = new HashMap<>() {{
+    private static final Map<TextureEnum, String> paths = new EnumMap<>(TextureEnum.class) {{
         put(TextureEnum.LOGO, "res/logo.png");
     }};
 
