@@ -17,6 +17,9 @@ import static org.lwjgl.opengl.GL33.*;
  */
 public final class FlowerKnight {
 
+    // MSAA Sample Size
+    private static final int SAMPLES = 64;
+
     private FlowerKnight() {
         throw new IllegalStateException("FlowerKnight Class");
     }
@@ -41,7 +44,7 @@ public final class FlowerKnight {
             glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         }
 
-        window = new Window();
+        window = new Window(SAMPLES);
 
         Shader.init();
 
