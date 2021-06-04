@@ -27,9 +27,11 @@ public final class TextureAtlas {
     /**
      * The map from textures to paths.
      */
-    private static final Map<TextureEnum, String> paths = new EnumMap<>(TextureEnum.class) {{
-        put(TextureEnum.LOGO, "res/logo.png");
-    }};
+    private static final Map<TextureEnum, String> paths = new EnumMap<>(TextureEnum.class);
+
+    static {
+        paths.put(TextureEnum.LOGO, "res/logo.png");
+    }
 
     /**
      * What size every texture must be.
