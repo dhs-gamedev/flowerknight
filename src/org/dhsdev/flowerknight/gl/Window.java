@@ -1,5 +1,6 @@
 package org.dhsdev.flowerknight.gl;
 
+import org.dhsdev.flowerknight.game.Camera;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
@@ -161,6 +162,18 @@ public class Window {
 
         // Render everything to screen at once
         this.displayAllUpdates();
+
+    }
+
+    /**
+     * Update the spotlight annd camera shaders which change with every tick.
+     */
+    public void updateNeededShaders() {
+
+        Shader.getSpotlightShader().bind();
+        Shader.getSpotlightShader().setUniform("time", (float) glfwGetTime());
+
+        Camera.updateShaders();
 
     }
 
