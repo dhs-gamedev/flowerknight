@@ -57,6 +57,19 @@ public final class FlowerKnight {
 
         Shader.getSpotlightShader().registerUniform("time");
 
+        // Register width and height for every shader
+        for (var shader : new Shader[] {
+                Shader.getGameShader(),
+                Shader.getSpotlightShader(),
+                Shader.getTrivialShader(),
+        }) {
+            shader.registerUniform("width");
+            shader.registerUniform("height");
+        }
+
+        // Update shaders here after all uniforms have been registered
+        window.updateShadersOnResize(window.width(), window.height());
+
         TextureAtlas.loadAllTextures();
 
     }

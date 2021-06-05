@@ -1,5 +1,6 @@
 package org.dhsdev.flowerknight.gl;
 
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
 import java.util.Objects;
@@ -38,6 +39,9 @@ public class Window {
         int screenWidth = (int) (monitorHeight * 0.75f);
         // Don't ask me what the two NULLs are for. I have no clue.
         handle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
+
+        width  = screenWidth;
+        height = screenHeight;
 
         glfwMakeContextCurrent(handle);
         GL.createCapabilities();
@@ -84,6 +88,53 @@ public class Window {
         // Make it close in case it hasn't yet
         glfwSetWindowShouldClose(handle, true);
         glfwDestroyWindow(handle);
+    }
+
+    /**
+     * Update shader uniforms when the window gets resized.
+     * @param width the new window width
+     * @param height the new window height
+     */
+    public void updateShadersOnResize(float width, float height) {
+
+        this.width  = width;
+        this.height = height;
+
+        // Update width and height for every shader
+        for (var shader : new Shader[] {
+                Shader.getGameShader(),
+                Shader.getSpotlightShader(),
+                Shader.getTrivialShader(),
+        }) {
+            shader.bind();
+            shader.setUniform("width" , width);
+            shader.setUniform("height", height);
+        }
+
+    }
+
+    /**
+     * Window width
+     */
+    private float width;
+
+    /**
+     * Get width
+     */
+    public float width() {
+        return width;
+    }
+
+    /**
+     * Window height
+     */
+    private float height;
+
+    /**
+     * Get height
+     */
+    public float height() {
+        return height;
     }
 
 }
