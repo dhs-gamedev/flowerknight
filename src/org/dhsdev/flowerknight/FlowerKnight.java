@@ -36,6 +36,8 @@ public final class FlowerKnight {
         // Set up GLFW. Errors should be checked here later.
         glfwInit();
 
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+
         // macOS needs to request a forward profile for a later
         // version of OpenGL explicitly. Version 3.3, to be specific.
         if (GetOSType.getOSType() == OSType.MACOS) {
@@ -55,6 +57,19 @@ public final class FlowerKnight {
 
         Shader.getSpotlightShader().registerUniform("time");
 
+        // Register width and height for every shader
+        for (var shader : new Shader[] {
+                Shader.getGameShader(),
+                Shader.getSpotlightShader(),
+                Shader.getTrivialShader(),
+        }) {
+            shader.registerUniform("width");
+            shader.registerUniform("height");
+        }
+
+        // Update shaders here after all uniforms have been registered
+        window.updateShadersOnResize(window.width(), window.height());
+
         TextureAtlas.loadAllTextures();
 
     }
@@ -68,23 +83,11 @@ public final class FlowerKnight {
         // While it's open, clear screen and check for events.
         while (window.isOpen()) {
 
-            Shader.getSpotlightShader().bind();
-            Shader.getSpotlightShader().setUniform("time", (float) glfwGetTime());
-
-            Camera.updateShaders();
+            window.updateNeededShaders();
 
             GameObject.updateAll();
 
-            window.clear();
-
-            // Iterate and draw all renderable object
-            for (Renderable renderable : Renderable.renderables) {
-                renderable.draw();
-            }
-
-
-            // Render everything to screen at once
-            window.displayAllUpdates();
+            window.redraw();
 
             window.callEventHandlers();
 

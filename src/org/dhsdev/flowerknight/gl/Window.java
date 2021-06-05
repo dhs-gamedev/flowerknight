@@ -1,5 +1,7 @@
 package org.dhsdev.flowerknight.gl;
 
+import org.dhsdev.flowerknight.game.Camera;
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
 import java.util.Objects;
@@ -29,9 +31,6 @@ public class Window {
      */
     public Window(int samples) {
 
-        // Right now the window is non-resizable.
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
         // Hint MSAA
         glfwWindowHint(GLFW_SAMPLES, samples);
 
@@ -42,6 +41,9 @@ public class Window {
         // Don't ask me what the two NULLs are for. I have no clue.
         handle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
 
+        width  = screenWidth;
+        height = screenHeight;
+
         glfwMakeContextCurrent(handle);
         GL.createCapabilities();
 
@@ -49,6 +51,17 @@ public class Window {
         glEnable(GL_MULTISAMPLE);
 
         glfwShowWindow(handle);
+
+        // We want the window to immediately render as it is resized - the images
+        // will scale correctly, but the spotlight shader will freeze and the
+        // will not remain a square.
+        glfwSetWindowSizeCallback(handle, (long window, int width, int height) -> {
+            // Update the shaders and render.
+            updateShadersOnResize(width, height);
+            updateNeededShaders();
+            redraw();
+        });
+
     }
 
     /**
@@ -87,6 +100,82 @@ public class Window {
         // Make it close in case it hasn't yet
         glfwSetWindowShouldClose(handle, true);
         glfwDestroyWindow(handle);
+    }
+
+    /**
+     * Update shader uniforms when the window gets resized.
+     * @param width the new window width
+     * @param height the new window height
+     */
+    public void updateShadersOnResize(float width, float height) {
+
+        this.width  = width;
+        this.height = height;
+
+        // Update width and height for every shader
+        for (var shader : new Shader[] {
+                Shader.getGameShader(),
+                Shader.getSpotlightShader(),
+                Shader.getTrivialShader(),
+        }) {
+            shader.bind();
+            shader.setUniform("width" , width);
+            shader.setUniform("height", height);
+        }
+
+    }
+
+    /**
+     * Window width
+     */
+    private float width;
+
+    /**
+     * Get width
+     */
+    public float width() {
+        return width;
+    }
+
+    /**
+     * Window height
+     */
+    private float height;
+
+    /**
+     * Get height
+     */
+    public float height() {
+        return height;
+    }
+
+    /**
+     * Render everything.
+     */
+    public void redraw() {
+
+        this.clear();
+
+        // Iterate and draw all renderable object
+        for (Renderable renderable : Renderable.renderables) {
+            renderable.draw();
+        }
+
+        // Render everything to screen at once
+        this.displayAllUpdates();
+
+    }
+
+    /**
+     * Update the spotlight annd camera shaders which change with every tick.
+     */
+    public void updateNeededShaders() {
+
+        Shader.getSpotlightShader().bind();
+        Shader.getSpotlightShader().setUniform("time", (float) glfwGetTime());
+
+        Camera.updateShaders();
+
     }
 
 }
