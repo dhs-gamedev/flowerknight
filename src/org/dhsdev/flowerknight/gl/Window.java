@@ -50,6 +50,16 @@ public class Window {
         glEnable(GL_MULTISAMPLE);
 
         glfwShowWindow(handle);
+
+        // We want the window to immediately render as it is resized - the images
+        // will scale correctly, but the spotlight shader will freeze and the
+        // will not remain a square.
+        glfwSetWindowSizeCallback(handle, (long window, int width, int height) -> {
+            // Update the shaders and render.
+            updateShadersOnResize(width, height);
+            redraw();
+        });
+
     }
 
     /**
@@ -135,6 +145,23 @@ public class Window {
      */
     public float height() {
         return height;
+    }
+
+    /**
+     * Render everything.
+     */
+    public void redraw() {
+
+        this.clear();
+
+        // Iterate and draw all renderable object
+        for (Renderable renderable : Renderable.renderables) {
+            renderable.draw();
+        }
+
+        // Render everything to screen at once
+        this.displayAllUpdates();
+
     }
 
 }

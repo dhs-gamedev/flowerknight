@@ -90,16 +90,7 @@ public final class FlowerKnight {
 
             GameObject.updateAll();
 
-            window.clear();
-
-            // Iterate and draw all renderable object
-            for (Renderable renderable : Renderable.renderables) {
-                renderable.draw();
-            }
-
-
-            // Render everything to screen at once
-            window.displayAllUpdates();
+            window.redraw();
 
             window.callEventHandlers();
 
