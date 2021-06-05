@@ -29,9 +29,6 @@ public class Window {
      */
     public Window(int samples) {
 
-        // Right now the window is non-resizable.
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
         // Hint MSAA
         glfwWindowHint(GLFW_SAMPLES, samples);
 
