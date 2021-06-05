@@ -58,6 +58,7 @@ public class Window {
         glfwSetWindowSizeCallback(handle, (long window, int width, int height) -> {
             // Update the shaders and render.
             updateShadersOnResize(width, height);
+            updateNeededShaders();
             redraw();
         });
 
