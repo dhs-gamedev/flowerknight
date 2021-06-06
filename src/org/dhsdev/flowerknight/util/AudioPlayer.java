@@ -31,7 +31,10 @@ public class AudioPlayer {
 
     private float volume;
 
-    // Initialize streams and clip
+    /**
+     * Initialize streams and clip
+     * @param audioFile The audio file location
+     */
     public AudioPlayer(String audioFile) {
         try {
             // Audio File URL
@@ -62,10 +65,18 @@ public class AudioPlayer {
         }
     }
 
+    /**
+     * Changes the volume of the audio
+     * @param change The magnitude of volume to change
+     */
     public void changeVolume(float change) {
         setVolume(volume + change);
     }
 
+    /**
+     * Sets the volume of the track
+     * @param set The volume to set to
+     */
     public void setVolume(float set) {
         if (set > -80.0f && set < 6.0f) {
             if (audioPlayerState == AudioPlayerState.PLAY) {
@@ -77,7 +88,9 @@ public class AudioPlayer {
         }
     }
 
-    // Method to play the audio
+    /**
+     * Plays the audio
+     */
     public void play() {
         // Start the clip
         clip.start();
@@ -86,7 +99,9 @@ public class AudioPlayer {
         Logger.log("Audio started", Severity.DEBUG);
     }
 
-    // Method to pause the audio
+    /**
+     * Pauses the audio
+     */
     public void pause() {
         if (audioPlayerState == AudioPlayerState.PAUSED) {
             Logger.log("Audio is already paused", Severity.DEBUG);
@@ -98,7 +113,12 @@ public class AudioPlayer {
         Logger.log("Audio paused", Severity.DEBUG);
     }
 
-    // Method to resume the audio
+    /**
+     * Resumes the audio
+     * @throws UnsupportedAudioFileException Unsupported audio file
+     * @throws IOException IO Exception
+     * @throws LineUnavailableException Line unavailable
+     */
     public void resumeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (audioPlayerState == AudioPlayerState.PLAY) {
             Logger.log("Audio is already being played", Severity.DEBUG);
@@ -111,7 +131,12 @@ public class AudioPlayer {
         Logger.log("Audio resumed", Severity.DEBUG);
     }
 
-    // Method to restart the audio
+    /**
+     * Restarts the audio
+     * @throws UnsupportedAudioFileException Unsupported audio file
+     * @throws IOException IO Exception
+     * @throws LineUnavailableException Line unavailable
+     */
     public void restart() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         clip.stop();
         clip.close();
@@ -122,7 +147,9 @@ public class AudioPlayer {
         Logger.log("Audio restarted", Severity.DEBUG);
     }
 
-    // Method to stop the audio
+    /**
+     * Stops the audio
+     */
     public void stop() {
         currentPosition = 0L;
         clip.stop();
@@ -130,7 +157,13 @@ public class AudioPlayer {
         Logger.log("Audio stopped", Severity.DEBUG);
     }
 
-    // Method to jump over a specific part
+    /**
+     * Jump to a location
+     * @param location The location to jump to
+     * @throws UnsupportedAudioFileException Unsupported audio file
+     * @throws IOException IO Exception
+     * @throws LineUnavailableException Line unavailable
+     */
     public void jump(long location) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (location > 0 && location < clip.getMicrosecondLength()) {
             clip.stop();
@@ -143,7 +176,12 @@ public class AudioPlayer {
         }
     }
 
-    // Method to reset audio stream
+    /**
+     * Reset the audio stream
+     * @throws UnsupportedAudioFileException Unsupported audio file
+     * @throws IOException IO Exception
+     * @throws LineUnavailableException Line unavailable
+     */
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         audioInputStream = AudioSystem.getAudioInputStream(new File(audioFile).getAbsoluteFile());
         clip.open(audioInputStream);
