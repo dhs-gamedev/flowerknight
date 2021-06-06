@@ -13,24 +13,23 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.FloatControl;
 
 /**
- * An audio player for background music
- * @author jakeroggenbuck
- * @since 0.3.0
+ * A music player
+ * @author Shuzhengz
  */
 public class AudioPlayer {
 
-    public static String audioFile;
+    private static String audioFile;
 
     // Store current position in audio
     private long currentPosition;
     private Clip clip;
 
     // The state of the player
-    public AudioPlayerState audioPlayerState;
+    private AudioPlayerState audioPlayerState;
 
     private AudioInputStream audioInputStream;
 
-    public static float volume;
+    private float volume;
 
     // Initialize streams and clip
     public AudioPlayer(String audioFile) {
@@ -62,6 +61,7 @@ public class AudioPlayer {
             ex.printStackTrace();
         }
     }
+
     public void changeVolume(float change) {
         setVolume(volume + change);
     }
@@ -139,7 +139,7 @@ public class AudioPlayer {
             currentPosition = location;
             clip.setMicrosecondPosition(location);
             this.play();
-            Logger.log("Audio location changed with jump()", Severity.DEBUG);
+            Logger.log("is jumped", Severity.DEBUG);
         }
     }
 
@@ -149,5 +149,17 @@ public class AudioPlayer {
         clip.open(audioInputStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
         Logger.log("AudioStream restarted", Severity.DEBUG);
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public AudioPlayerState getAudioPlayerState() {
+        return audioPlayerState;
+    }
+
+    public static String getAudioFile() {
+        return audioFile;
     }
 }
