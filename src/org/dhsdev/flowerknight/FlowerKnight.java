@@ -7,6 +7,10 @@ import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Window;
+import org.dhsdev.flowerknight.gl.comp.TextRenderer;
+import org.w3c.dom.Text;
+
+import java.awt.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
@@ -26,6 +30,8 @@ public final class FlowerKnight {
     }
 
     private static Window window;
+
+    private static TextRenderer textRenderer;
 
     /**
      * Perform the setup for the game. This initializes GLFW and creates a
@@ -52,6 +58,8 @@ public final class FlowerKnight {
         Camera.init();
 
         Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
+
+        textRenderer = new TextRenderer(new Font(Font.DIALOG_INPUT, Font.PLAIN, 69), true);
 
         Shader.getSpotlightShader().registerUniform("time");
 
@@ -81,6 +89,8 @@ public final class FlowerKnight {
             for (Renderable renderable : Renderable.renderables) {
                 renderable.draw();
             }
+
+            textRenderer.drawText("Test", 69, 69, Color.RED);
 
 
             // Render everything to screen at once

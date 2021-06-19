@@ -2,6 +2,7 @@ package org.dhsdev.flowerknight.gl;
 
 import static org.lwjgl.opengl.GL33.*;
 
+import java.awt.image.DataBuffer;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -45,6 +46,20 @@ public class Texture {
         }
         buf.flip();
 
+        texId = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, texId);
+
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width,
+                height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buf
+        );
+
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+    }
+
+    public Texture(ByteBuffer buf, int width, int height) {
         texId = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texId);
 

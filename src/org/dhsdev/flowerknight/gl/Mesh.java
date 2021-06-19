@@ -93,12 +93,8 @@ public final class Mesh {
         return vboId;
     }
 
-    /**
-     * Render this mesh. This is useless right now because we don't have texture
-     * code.
-     * @param texture the OpenGL textureID to use.
-     */
     public void render(TextureEnum texture) {
+
 
         int pos = texture.ordinal();
         int texMax = TextureEnum.values().length;
@@ -107,11 +103,23 @@ public final class Mesh {
 
         // We select a square from the large texture atlas image.
         var texCoords = new float[] {
-            pos * stride,       1,
-            pos * stride,       0,
-            (pos + 1) * stride, 0,
-            (pos + 1) * stride, 1,
+                pos * stride,       1,
+                pos * stride,       0,
+                (pos + 1) * stride, 0,
+                (pos + 1) * stride, 1,
         };
+
+        render(texCoords);
+
+
+    }
+
+    /**
+     * Render this mesh. This is useless right now because we don't have texture
+     * code.
+     * @param texture the OpenGL textureID to use.
+     */
+    public void render(float[] texCoords) {
 
         glBindVertexArray(vaoId);
 

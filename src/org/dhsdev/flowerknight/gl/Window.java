@@ -15,6 +15,9 @@ import static org.lwjgl.system.MemoryUtil.*;
  */
 public class Window {
 
+    public static int screenHeight;
+    public static int screenWidth;
+
     /**
      * The OpenGL window handle.
      */
@@ -37,8 +40,8 @@ public class Window {
 
         // Get the size of the screen height as a basis for window size.
         int monitorHeight = Objects.requireNonNull(glfwGetVideoMode(glfwGetPrimaryMonitor())).height();
-        int screenHeight = (int) (monitorHeight * 0.75f);
-        int screenWidth = (int) (monitorHeight * 0.75f);
+        screenHeight = (int) (monitorHeight * 0.75f);
+        screenWidth = (int) (monitorHeight * 0.75f);
         // Don't ask me what the two NULLs are for. I have no clue.
         handle = glfwCreateWindow(screenWidth, screenHeight, "FlowerKnight", NULL, NULL);
 
