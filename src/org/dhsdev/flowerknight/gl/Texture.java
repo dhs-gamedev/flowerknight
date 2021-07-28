@@ -73,4 +73,9 @@ public class Texture {
         glDeleteTextures(texId);
     }
 
+    /**
+     * The textures
+     */
+    public static Texture LOGO;
+
 }
