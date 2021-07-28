@@ -73,4 +73,23 @@ public class Texture {
         glDeleteTextures(texId);
     }
 
+    /**
+     * The textures
+     */
+    public static Texture LOGO;
+
+    /**
+     * Set this to be used.
+     */
+    public void bind() {
+        glUseProgram(texId);
+    }
+
+    /**
+     * Set this to be unused.
+     */
+    public void unbind() {
+        glUseProgram(0);
+    }
+
 }
