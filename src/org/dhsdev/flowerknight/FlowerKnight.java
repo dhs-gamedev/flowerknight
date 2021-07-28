@@ -1,12 +1,16 @@
 package org.dhsdev.flowerknight;
 
 import org.dhsdev.flowerknight.gl.Renderable;
-import org.dhsdev.flowerknight.gl.TextureAtlas;
+import org.dhsdev.flowerknight.gl.Texture;
 import org.dhsdev.flowerknight.gl.comp.Label;
 import org.dhsdev.flowerknight.game.Camera;
 import org.dhsdev.flowerknight.game.GameObject;
 import org.dhsdev.flowerknight.gl.Shader;
 import org.dhsdev.flowerknight.gl.Window;
+import org.dhsdev.flowerknight.util.Logger;
+import org.dhsdev.flowerknight.util.Severity;
+
+import java.io.IOException;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL33.*;
@@ -51,11 +55,16 @@ public final class FlowerKnight {
 
         Camera.init();
 
+        try {
+            Texture.LOGO = new Texture("res/logo.png");
+            Texture.LOGO.bind();
+        } catch (IOException e) {
+            Logger.log("Could not load logo", Severity.ERROR);
+        }
+
         Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
 
         Shader.getSpotlightShader().registerUniform("time");
-
-        TextureAtlas.loadAllTextures();
 
     }
 
@@ -105,7 +114,8 @@ public final class FlowerKnight {
         // but still good practice.
         window.delete();
 
-        TextureAtlas.delete();
+        Texture.LOGO.unbind();
+        Texture.LOGO.delete();
 
         glfwTerminate();
     }
