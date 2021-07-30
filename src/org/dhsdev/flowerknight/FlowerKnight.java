@@ -56,8 +56,8 @@ public final class FlowerKnight {
         Camera.init();
 
         try {
-            Texture.LOGO = new Texture("res/logo.png");
-            Texture.LOGO.bind();
+            Texture.LOGO  = new Texture("res/logo.png");
+            Texture.ARDEN = new Texture("res/arden.png");
         } catch (IOException e) {
             Logger.log("Could not load logo", Severity.ERROR);
         }
@@ -116,6 +116,8 @@ public final class FlowerKnight {
 
         Texture.LOGO.unbind();
         Texture.LOGO.delete();
+        Texture.ARDEN.unbind();
+        Texture.ARDEN.delete();
 
         glfwTerminate();
     }

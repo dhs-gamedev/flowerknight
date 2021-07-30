@@ -76,7 +76,7 @@ public class Texture {
     /**
      * The textures
      */
-    public static Texture LOGO;
+    public static Texture LOGO, ARDEN;
 
     /**
      * Set this to be used.
