@@ -98,25 +98,14 @@ public final class Mesh {
      * code.
      * @param texture the OpenGL textureID to use.
      */
-    public void render(TextureEnum texture) {
+    public void render(Texture texture) {
 
-        int pos = texture.ordinal();
-        int texMax = TextureEnum.values().length;
-
-        float stride = 1 / (float) texMax;
-
-        // We select a square from the large texture atlas image.
-        var texCoords = new float[] {
-            pos * stride,       1,
-            pos * stride,       0,
-            (pos + 1) * stride, 0,
-            (pos + 1) * stride, 1,
-        };
+        texture.bind();
 
         glBindVertexArray(vaoId);
 
         // Texture coordinates
-        int texVboId = getVboId(texCoords);
+        int texVboId = getVboId(new float[] { 0, 1, 0, 0, 1, 0, 1, 1 });
         glVertexAttribPointer(1, GAME_DIMENSION, GL_FLOAT, false, 0, 0);
 
         // Draw the mesh

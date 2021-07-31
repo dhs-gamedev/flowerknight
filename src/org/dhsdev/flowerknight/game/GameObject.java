@@ -18,7 +18,7 @@ public class GameObject {
      * The strength of gravity. Until we get an actual game object, we have no
      * clue how fast this will make things fall, so keep it zero for now.
      */
-    public static final float GRAVITY_STRENGTH = 0.0f;
+    public static final float GRAVITY_STRENGTH = 0.0001f;
 
     /**
      * The x-position.
@@ -74,6 +74,9 @@ public class GameObject {
         // Update gravity
         if (hasGravity)
             yVelocity -= GameObject.GRAVITY_STRENGTH;
+
+        y += yVelocity;
+        x += xVelocity;
 
         // TODO - collision, etc.
 
