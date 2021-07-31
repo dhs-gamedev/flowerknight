@@ -19,7 +19,7 @@ public class Label extends Component  {
     private float offsetX;
     private float offsetY;
     private Mesh mesh;
-    private TextureEnum tex;
+    private Texture texture;
     private Shader shader;
 
     /**
@@ -57,7 +57,7 @@ public class Label extends Component  {
     @Override
     public void draw() {
         shader.bind();
-        mesh.render(TextureEnum.LOGO);
+        mesh.render(texture);
     }
 
     @Override

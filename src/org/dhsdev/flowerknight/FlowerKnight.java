@@ -1,5 +1,6 @@
 package org.dhsdev.flowerknight;
 
+import org.dhsdev.flowerknight.game.Player;
 import org.dhsdev.flowerknight.gl.Renderable;
 import org.dhsdev.flowerknight.gl.Texture;
 import org.dhsdev.flowerknight.gl.comp.Label;
@@ -59,10 +60,10 @@ public final class FlowerKnight {
             Texture.LOGO  = new Texture("res/logo.png");
             Texture.ARDEN = new Texture("res/arden.png");
         } catch (IOException e) {
-            Logger.log("Could not load logo", Severity.ERROR);
+            Logger.log("Could not load textures", Severity.ERROR);
         }
 
-        Renderable.renderables.add(new Label("Test", "Test Text", 0.4f,0.4f, 0f, 0f));
+        Renderable.renderables.add(new Player(0, 0));
 
         Shader.getSpotlightShader().registerUniform("time");
 
